@@ -19,7 +19,7 @@ class CreateTasks {
     await _db
         .collection('groupes')
         .doc(groupeId)
-        .set({'groupeNom': groupeNom}).then((value) async {
+        .set({'groupeNom': groupeNom, 'admin': _auth.uid }).then((value) async {
       await _db
           .collection('groupes')
           .doc(groupeId)

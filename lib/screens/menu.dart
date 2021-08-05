@@ -1,10 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:wazakir/models/user.dart';
 import 'package:wazakir/providers/userProvider.dart';
+import 'package:wazakir/screens/menu/ahadith.dart';
+import 'package:wazakir/screens/menu/azkar.dart';
 import 'package:wazakir/screens/menu/groupe.dart';
+import 'package:wazakir/screens/menu/iblagh.dart';
+import 'package:wazakir/screens/menu/logOut.dart';
+import 'package:wazakir/screens/menu/masaa.dart';
+import 'package:wazakir/screens/menu/nawm.dart';
+import 'package:wazakir/screens/menu/quitGroupe.dart';
+import 'package:wazakir/screens/menu/sabah.dart';
 import 'package:wazakir/size_config.dart';
 import 'package:wazakir/theme/colors/light_colors.dart';
 import 'package:wazakir/widgets/barMenu.dart';
@@ -20,6 +29,9 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   Users _user;
   bool chargement = true;
+  FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  bool isAdmin = false;
 
   void getData() async {
     await Provider.of<UserProvider>(context, listen: false)
@@ -29,6 +41,12 @@ class _MenuState extends State<Menu> {
       setState(() {
         chargement = false;
       });
+    });
+    await _db.collection('groupes').doc(_user.groupeId).get().then((value) {
+      if (value.data()['admin'] == _user.id)
+        setState(() {
+          isAdmin = true;
+        });
     });
   }
 
@@ -75,9 +93,211 @@ class _MenuState extends State<Menu> {
                                       BorderRadius.all(Radius.circular(20))),
                               child: Center(
                                 child: Text(
-                                  'membres of groupe',
+                                  'أعضاء المجموعة',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: heightSize(context, 3),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 600),
+                                      child: Sabah()));
+                            },
+                            child: Container(
+                              height: heightSize(context, 6),
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: LightColors.kBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Center(
+                                child: Text(
+                                  'أذكار الصباح',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: heightSize(context, 3),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 600),
+                                      child: Masaa()));
+                            },
+                            child: Container(
+                              height: heightSize(context, 6),
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: LightColors.kBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Center(
+                                child: Text(
+                                  'أذكار المساء',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: heightSize(context, 3),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 600),
+                                      child: Nawm()));
+                            },
+                            child: Container(
+                              height: heightSize(context, 6),
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: LightColors.kBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Center(
+                                child: Text(
+                                  'أذكار النوم',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: heightSize(context, 3),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 600),
+                                      child: Ahadith()));
+                            },
+                            child: Container(
+                              height: heightSize(context, 6),
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: LightColors.kBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Center(
+                                child: Text(
+                                  'أحاديث',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: heightSize(context, 3),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 600),
+                                      child: Azkar()));
+                            },
+                            child: Container(
+                              height: heightSize(context, 6),
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: LightColors.kBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Center(
+                                child: Text(
+                                  'أذكار',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: heightSize(context, 3),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              popUpQuiterGroupe(context, _user.groupeId);
+                            },
+                            child: Container(
+                              height: heightSize(context, 6),
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: LightColors.kBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Center(
+                                child: Text(
+                                  'خروج من المجموعة',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: heightSize(context, 3),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              popUpLogOut(context);
+                            },
+                            child: Container(
+                              height: heightSize(context, 6),
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: LightColors.kBlue,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Center(
+                                child: Text(
+                                  'تسجيل الخروج',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -96,9 +316,11 @@ class _MenuState extends State<Menu> {
                                       BorderRadius.all(Radius.circular(20))),
                               child: Center(
                                 child: Text(
-                                  'azkar sabah',
+                                  'نشر التطبيق',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -107,7 +329,9 @@ class _MenuState extends State<Menu> {
                             height: heightSize(context, 3),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              popUpIblagh(context, _user.id);
+                            },
                             child: Container(
                               height: heightSize(context, 6),
                               width: MediaQuery.of(context).size.width * 0.85,
@@ -117,120 +341,58 @@ class _MenuState extends State<Menu> {
                                       BorderRadius.all(Radius.circular(20))),
                               child: Center(
                                 child: Text(
-                                  'azkar masaa',
+                                  'إبلاغ عن مشكل',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(
-                            height: heightSize(context, 3),
+                            height: heightSize(context, 2),
                           ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              height: heightSize(context, 6),
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              decoration: BoxDecoration(
-                                  color: LightColors.kBlue,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Center(
-                                child: Text(
-                                  'azkar nawm',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                          isAdmin
+                              ? Column(
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        popUpIblagh(context, _user.id);
+                                      },
+                                      child: Container(
+                                        height: heightSize(context, 6),
+                                        width: MediaQuery.of(context).size.width *
+                                            0.85,
+                                        decoration: BoxDecoration(
+                                            color: LightColors.kBlue,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+                                        child: Center(
+                                          child: Text(
+                                            'Admin',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                  height: heightSize(context, 2),
                                 ),
-                              ),
+                                ],
+                              )
+                              : Container(),
+                          Center(
+                            child: Text(
+                              '🤲🏻 لاتنسونا من صالح دعائكم 🙏🏻',
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
                           SizedBox(
-                            height: heightSize(context, 3),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              height: heightSize(context, 6),
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              decoration: BoxDecoration(
-                                  color: LightColors.kBlue,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Center(
-                                child: Text(
-                                  'ahadith',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: heightSize(context, 3),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              height: heightSize(context, 6),
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              decoration: BoxDecoration(
-                                  color: LightColors.kBlue,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Center(
-                                child: Text(
-                                  'azkar',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: heightSize(context, 3),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              height: heightSize(context, 6),
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              decoration: BoxDecoration(
-                                  color: LightColors.kBlue,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Center(
-                                child: Text(
-                                  'quiter le groupe',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: heightSize(context, 3),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              height: heightSize(context, 6),
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              decoration: BoxDecoration(
-                                  color: LightColors.kBlue,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Center(
-                                child: Text(
-                                  'quiter l app',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: heightSize(context, 3),
+                            height: heightSize(context, 1.5),
                           ),
                         ],
                       ),

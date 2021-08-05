@@ -14,3 +14,7 @@ Future<bool> joinGroupe(String groupeId) async {
   });
   return res;
 }
+
+Future<void> iblagh(String id, String iblagh) async {
+  await _db.collection('iblagh').doc(id).set({'id': id, 'iblagh': iblagh});
+}

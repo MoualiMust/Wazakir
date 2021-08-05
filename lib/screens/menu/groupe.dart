@@ -20,6 +20,19 @@ class _GroupeState extends State<Groupe> {
   bool chargement = true;
   List<Users> _users = [];
 
+  String dateUser(String date) {
+    var today = DateTime.now();
+    String day = (today.year).toString() +
+        '-' +
+        (today.month).toString() +
+        '-' +
+        (today.day).toString();
+    if (day.compareTo(date) > 0)
+      return date;
+    else
+      return day;
+  }
+
   void getData() async {
     _users.clear();
     await Provider.of<UserProvider>(context, listen: false)
@@ -57,27 +70,29 @@ class _GroupeState extends State<Groupe> {
                   Expanded(
                     child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                      children: <Widget>[
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        children: <Widget>[
                           for (int i = 0; i < _users.length; i++)
                             ActiveProjectsCard(
                               cardColor: _users[i].score < 50
                                   ? LightColors.kRed
                                   : LightColors.kGreen,
-                              loadingPercent: (double.parse(
+                              loadingPercent:
+                                  (double.parse((_users[i].score).toString())) *
+                                              0.01 <
+                                          1
+                                      ? (double.parse(
                                               (_users[i].score).toString())) *
-                                          0.01 <
-                                      1
-                                  ? (double.parse((_users[i].score).toString())) *
-                                      0.01
-                                  : 1,
+                                          0.01
+                                      : 1,
                               title: _users[i].nom,
-                              subtitle: 'akhir mocharaka ${_users[i].date}',
+                              subtitle:
+                                  'akhir mocharaka ${dateUser(_users[i].date)}',
                             ),
-                      ],
-                    ),
-                        )),
+                        ],
+                      ),
+                    )),
                   )
                 ],
               ),

@@ -47,7 +47,7 @@ class _BarMenuState extends State<BarMenu> {
                     PageTransition(
                         type: PageTransitionType.bottomToTop,
                         duration: Duration(milliseconds: 600),
-                        child: Chat()));
+                        child: Discution()));
               },
               child: Icon(
                 Icons.chat_outlined,

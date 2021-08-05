@@ -21,7 +21,7 @@ class _ChartState extends State<Chart> {
   List<Tasks> tasks = [];
   bool chargement = true;
 
-  double score = 0;
+  dynamic score = 0;
 
   String type = '';
 
@@ -91,7 +91,7 @@ class _ChartState extends State<Chart> {
                                     BorderRadius.all(Radius.circular(20))),
                             child: Center(
                               child: Text(
-                                'pourcentage',
+                                'معدل الأداء',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
@@ -118,7 +118,7 @@ class _ChartState extends State<Chart> {
                                     BorderRadius.all(Radius.circular(20))),
                             child: Center(
                               child: Text(
-                                'hier',
+                                'الأمس',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
@@ -144,7 +144,7 @@ class _ChartState extends State<Chart> {
                                     BorderRadius.all(Radius.circular(20))),
                             child: Center(
                               child: Text(
-                                'lyawm',
+                                'اليوم',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
@@ -174,21 +174,20 @@ class _ChartState extends State<Chart> {
                                   SizedBox(
                                     height: heightSize(context, 1),
                                   ),
-                                  if (score > 0)
-                                    ActiveProjectsCard(
-                                      cardColor: score < 50
-                                          ? LightColors.kRed
-                                          : LightColors.kGreen,
-                                      loadingPercent: (double.parse(
-                                                      (score).toString())) *
-                                                  0.01 <
-                                              1
-                                          ? (double.parse((score).toString())) *
-                                              0.01
-                                          : 1,
-                                      title: _user.nom,
-                                      subtitle: '$score %',
-                                    ),
+                                  ActiveProjectsCard(
+                                    cardColor: score < 50
+                                        ? LightColors.kRed
+                                        : LightColors.kGreen,
+                                    loadingPercent: (double.parse(
+                                                    (score).toString())) *
+                                                0.01 <
+                                            1
+                                        ? (double.parse((score).toString())) *
+                                            0.01
+                                        : 1,
+                                    title: _user.nom,
+                                    subtitle: '$score % نسبة الأداء',
+                                  ),
                                   SizedBox(
                                     height: heightSize(context, 1),
                                   ),
@@ -201,11 +200,25 @@ class _ChartState extends State<Chart> {
                                   ),
                                   for (int i = 0; i < tasks.length; i++)
                                     ActiveProjectsCard(
-                                      cardColor: (double.parse((tasks[i].score)
-                                                  .toString())) <
-                                              50
-                                          ? LightColors.kRed
-                                          : LightColors.kGreen,
+                                      cardColor: type == 'today'
+                                          ? (double.parse((tasks[i].score)
+                                                      .toString())) <
+                                                  50
+                                              ? LightColors.kRed
+                                              : LightColors.kGreen
+                                          : type == 'hier'
+                                              ? (double.parse(
+                                                          (tasks[i].scoreHier)
+                                                              .toString())) <
+                                                      50
+                                                  ? LightColors.kRed
+                                                  : LightColors.kGreen
+                                              : (double.parse(
+                                                          (tasks[i].scoreTotale)
+                                                              .toString())) <
+                                                      50
+                                                  ? LightColors.kRed
+                                                  : LightColors.kGreen,
                                       loadingPercent: type == 'today'
                                           ? (double.parse((tasks[i].score)
                                                   .toString())) *
