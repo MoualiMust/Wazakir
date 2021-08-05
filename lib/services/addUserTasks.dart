@@ -6,10 +6,10 @@ import 'package:wazakir/services/firestoreService.dart';
 FirebaseFirestore _db = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance.currentUser;
 
-List<Tasks> tasks;
+List<Tasks> _tasks;
 Future<void> addUserTasks(String groupeId) async {
-  await FireStoreService().getTasks(groupeId).then((value) => tasks = value);
-  await Future.forEach(tasks, (element) async {
+  await FireStoreService().getTasks(groupeId).then((value) => _tasks = value);
+  await Future.forEach(_tasks, (element) async {
     await _db
         .collection('tasks')
         .doc(element.id)
@@ -26,8 +26,8 @@ Future<void> addUserTasks(String groupeId) async {
 }
 
 Future<void> deleteUserFromGroupe(String groupeId) async{
-  await FireStoreService().getTasks(groupeId).then((value) => tasks = value);
-  await Future.forEach(tasks, (element) async {
+  await FireStoreService().getTasks(groupeId).then((value) => _tasks = value);
+  await Future.forEach(_tasks, (element) async {
     await _db
         .collection('tasks')
         .doc(element.id)

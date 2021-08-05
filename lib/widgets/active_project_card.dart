@@ -50,7 +50,7 @@ class ActiveProjectsCard extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 20.0,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

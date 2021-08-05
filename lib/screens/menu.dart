@@ -14,6 +14,7 @@ import 'package:wazakir/screens/menu/masaa.dart';
 import 'package:wazakir/screens/menu/nawm.dart';
 import 'package:wazakir/screens/menu/quitGroupe.dart';
 import 'package:wazakir/screens/menu/sabah.dart';
+import 'package:wazakir/screens/admin/admin.dart';
 import 'package:wazakir/size_config.dart';
 import 'package:wazakir/theme/colors/light_colors.dart';
 import 'package:wazakir/widgets/barMenu.dart';
@@ -354,43 +355,39 @@ class _MenuState extends State<Menu> {
                             height: heightSize(context, 2),
                           ),
                           isAdmin
-                              ? Column(
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        popUpIblagh(context, _user.id);
-                                      },
-                                      child: Container(
-                                        height: heightSize(context, 6),
-                                        width: MediaQuery.of(context).size.width *
-                                            0.85,
-                                        decoration: BoxDecoration(
-                                            color: LightColors.kBlue,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20))),
-                                        child: Center(
-                                          child: Text(
-                                            'Admin',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
+                              ? InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type:
+                                                PageTransitionType.bottomToTop,
+                                            duration:
+                                                Duration(milliseconds: 600),
+                                            child: Admin()));
+                                  },
+                                  child: Container(
+                                    height: heightSize(context, 6),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.85,
+                                    decoration: BoxDecoration(
+                                        color: LightColors.kRed,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: Center(
+                                      child: Text(
+                                        'إعدادات المجموعة',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    SizedBox(
+                                  ),
+                                )
+                              : SizedBox(
                                   height: heightSize(context, 2),
                                 ),
-                                ],
-                              )
-                              : Container(),
-                          Center(
-                            child: Text(
-                              '🤲🏻 لاتنسونا من صالح دعائكم 🙏🏻',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
                           SizedBox(
                             height: heightSize(context, 1.5),
                           ),

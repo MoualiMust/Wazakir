@@ -32,7 +32,7 @@ class _BarMenuState extends State<BarMenu> {
                     context,
                     PageTransition(
                         type: PageTransitionType.bottomToTop,
-                        duration: Duration(milliseconds: 600),
+                        duration: Duration(milliseconds: 100),
                         child: Menu()));
               },
               child: Icon(

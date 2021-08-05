@@ -88,7 +88,7 @@ class _GroupeState extends State<Groupe> {
                                       : 1,
                               title: _users[i].nom,
                               subtitle:
-                                  'akhir mocharaka ${dateUser(_users[i].date)}',
+                                  '${dateUser(_users[i].date)}',
                             ),
                         ],
                       ),

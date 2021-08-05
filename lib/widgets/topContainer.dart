@@ -13,9 +13,15 @@ class ProfilContainer extends StatefulWidget {
 }
 
 class _ProfilContainerState extends State<ProfilContainer> {
+  dynamic score = 100;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    if (widget.score > 100)
+      score = 100;
+    else
+      score = widget.score;
     return TopContainer(
       height: 140,
       width: width,
@@ -33,8 +39,7 @@ class _ProfilContainerState extends State<ProfilContainer> {
                     radius: 80.0,
                     lineWidth: 5.0,
                     animation: true,
-                    percent:
-                        (widget.score) * 0.01 < 1 ? (widget.score) * 0.01 : 1,
+                    percent: score * 0.01,
                     circularStrokeCap: CircularStrokeCap.round,
                     progressColor: LightColors.kRed,
                     backgroundColor: LightColors.kDarkYellow,
@@ -62,7 +67,7 @@ class _ProfilContainerState extends State<ProfilContainer> {
                       ),
                       Container(
                         child: Text(
-                          '${widget.score} % نسبة الأداء',
+                          '$score % نسبة الأداء',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 16.0,

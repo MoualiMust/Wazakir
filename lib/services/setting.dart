@@ -1,12 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wazakir/models/tasks.dart';
 import 'package:wazakir/models/user.dart';
 import 'package:wazakir/services/getAllUsers.dart';
 
 FirebaseFirestore _db = FirebaseFirestore.instance;
 
-Future<void> addTaskToGroupe(
+Future<Tasks> getTask(String groupeId, String taskId) async {
+  Tasks task;
+  await _db
+      .collection('groupes')
+      .doc(groupeId)
+      .collection('tasks')
+      .doc(taskId)
+      .get()
+      .then((value) {
+    task = Tasks.fromFirestore(value.data());
+  });
+  return task;
+}
+
+Future<bool> addTaskToGroupe(
     String groupeId, String nom, String description) async {
+  bool res = false;
   List<Users> users = [];
   await getAllUsers(groupeId).then((value) => users = value);
   final id = Uuid().v1();
@@ -40,8 +56,9 @@ Future<void> addTaskToGroupe(
           .collection('users')
           .doc(element.id)
           .set({'done': false});
-    });
+    }).then((value) => res = true);
   });
+  return res;
 }
 
 Future<void> deletetask(String groupeId, String taskId) async {

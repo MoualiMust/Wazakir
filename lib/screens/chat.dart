@@ -79,7 +79,7 @@ class _DiscutionState extends State<Discution> {
                                           Text(
                                             messages[i].nom,
                                             textAlign: TextAlign.right,
-                                            style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w700),
+                                            style: TextStyle(color: Colors.white24, fontSize: 16.0, fontWeight: FontWeight.w700),
                                           ),
                                           Text(messages[i].message,
                                               textAlign: TextAlign.center,
@@ -92,7 +92,7 @@ class _DiscutionState extends State<Discution> {
                                           ),
                                           Text(messages[i].date,
                                               style: TextStyle(
-                                                color: Colors.white,
+                                                color: Colors.white54,
                                                 fontSize: 13.0
                                               )),
                                         ],
