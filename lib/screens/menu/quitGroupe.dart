@@ -8,13 +8,10 @@ import 'package:wazakir/widgets/chargement.dart';
 import '../../size_config.dart';
 
 popUpQuiterGroupe(BuildContext context, String groupeId) async {
-  bool chargement = false;
   showDialog(
       context: context,
       builder: (BuildContext context) {
-        return chargement
-            ? Chargement()
-            : Container(
+        return Container(
                 child: AlertDialog(
                   scrollable: true,
                   content: Padding(

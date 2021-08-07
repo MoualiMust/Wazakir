@@ -38,7 +38,7 @@ class _ConnexionState extends State<Connexion> {
                 child: Column(
                   children: <Widget>[
                     SizedBox(
-                      height: 50,
+                      height: heightSize(context, 6),
                     ),
                     Text(
                       'تسجيل الدخول',
@@ -48,7 +48,7 @@ class _ConnexionState extends State<Connexion> {
                           fontSize: 30.0, fontWeight: FontWeight.w700),
                     ),
                     SizedBox(
-                      height: 60,
+                      height: heightSize(context, 4),
                     ),
                   ],
                 ),
@@ -126,7 +126,7 @@ class _ConnexionState extends State<Connexion> {
                   borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: Text(
-                  'دخول',
+                  'تسجيل الدخول',
                   style: TextStyle(color: Colors.white, fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -168,7 +168,7 @@ class _ConnexionState extends State<Connexion> {
                   borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: Text(
-                  'تسجيل',
+                  'إنشاء حساب',
                   style: TextStyle(color: LightColors.kBlue, fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
               ),

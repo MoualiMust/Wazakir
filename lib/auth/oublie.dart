@@ -36,7 +36,7 @@ class _OublieState extends State<Oublie> {
                       child: Column(
                         children: <Widget>[
                           SizedBox(
-                            height: 50,
+                            height: heightSize(context, 6),
                           ),
                           Text(
                             'تغيير كلمة السر',
@@ -47,7 +47,7 @@ class _OublieState extends State<Oublie> {
                                 fontWeight: FontWeight.w700),
                           ),
                           SizedBox(
-                            height: 60,
+                            height: heightSize(context, 4),
                           ),
                         ],
                       ),

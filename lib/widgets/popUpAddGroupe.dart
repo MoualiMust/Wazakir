@@ -32,15 +32,6 @@ popUpAddGroupe(
                   ),
                   SizedBox(height: heightSize(context, 1)),
                   Text(
-                    'بعد التأكيد لا يمكنكم إضافة أعمال أخرى إلى مجموعتكم',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  SizedBox(height: heightSize(context, 1)),
-                  Text(
                     nom,
                     textAlign: TextAlign.center,
                     style: TextStyle(

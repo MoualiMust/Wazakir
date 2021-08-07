@@ -36,6 +36,7 @@ popUpIblagh(BuildContext context, String userId) async {
                         Container(
                           height: 100,
                           child: TextField(
+                            textAlign: TextAlign.right,
                             maxLines: 5,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),

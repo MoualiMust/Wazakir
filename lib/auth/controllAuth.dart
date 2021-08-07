@@ -59,7 +59,6 @@ class _PasserelleState extends State<Passerelle> {
     if (utilisateur == null) {
       return Connexion();
     } else
-      //fetchGroupe(context);
-      return HomePage();
+      fetchGroupe(context);
   }
 }

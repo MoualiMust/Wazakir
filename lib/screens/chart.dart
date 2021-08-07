@@ -54,6 +54,10 @@ class _ChartState extends State<Chart> {
 
   @override
   Widget build(BuildContext context) {
+    if (score > 100)
+      setState(() {
+        score = 100;
+      });
     return chargement
         ? Chargement()
         : WillPopScope(
@@ -186,7 +190,8 @@ class _ChartState extends State<Chart> {
                                             0.01
                                         : 1,
                                     title: _user.nom,
-                                    subtitle: '$score % نسبة الأداء',
+                                    subtitle:
+                                        '${double.parse(score.toString()).toStringAsFixed(1)} % نسبة الأداء',
                                   ),
                                   SizedBox(
                                     height: heightSize(context, 1),
@@ -220,18 +225,31 @@ class _ChartState extends State<Chart> {
                                                   ? LightColors.kRed
                                                   : LightColors.kGreen,
                                       loadingPercent: type == 'today'
-                                          ? (double.parse((tasks[i].score)
-                                                  .toString())) *
-                                              0.01
-                                          : type == 'hier'
-                                              ? (double.parse(
-                                                      (tasks[i].scoreHier)
-                                                          .toString())) *
+                                          ? (double.parse((tasks[i].score).toString())) *
+                                                      0.01 <
+                                                  1
+                                              ? (double.parse((tasks[i].score).toString())) *
                                                   0.01
-                                              : (double.parse(
-                                                      (tasks[i].scoreTotale)
-                                                          .toString())) *
-                                                  0.01,
+                                              : 1
+                                          : type == 'hier'
+                                              ? (double.parse((tasks[i].scoreHier).toString())) *
+                                                          0.01 <
+                                                      1
+                                                  ? (double.parse(
+                                                          (tasks[i].scoreHier)
+                                                              .toString())) *
+                                                      0.01
+                                                  : 1
+                                              : (double.parse((tasks[i]
+                                                                  .scoreTotale)
+                                                              .toString())) *
+                                                          0.01 <
+                                                      1
+                                                  ? (double.parse(
+                                                          (tasks[i].scoreTotale)
+                                                              .toString())) *
+                                                      0.01
+                                                  : 1,
                                       title: tasks[i].nom,
                                       subtitle: tasks[i].description,
                                     ),

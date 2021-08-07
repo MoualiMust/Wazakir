@@ -58,7 +58,7 @@ class _FirstScreenState extends State<FirstScreen> {
               child: Column(
                 children: <Widget>[
                   TopContainer(
-                    height: 200,
+                    height: heightSize(context, 20),
                     width: width,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -235,7 +235,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                                     if (value == false)
                                                       setState(() {
                                                         erreur =
-                                                            'groupe not exist';
+                                                            'هذا الرمز غير صالح';
                                                         chargement = false;
                                                       });
                                                     else

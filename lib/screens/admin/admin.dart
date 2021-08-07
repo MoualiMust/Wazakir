@@ -27,6 +27,7 @@ class _AdminState extends State<Admin> {
   bool chargement = true;
 
   bool isAdmin = false;
+  final TextEditingController _groupeController = TextEditingController();
 
   void getData() async {
     await Provider.of<UserProvider>(context, listen: false)
@@ -39,6 +40,7 @@ class _AdminState extends State<Admin> {
         .then((value) => _tasks = value);
     setState(() {
       chargement = false;
+      _groupeController.text = _user.groupeId;
     });
   }
 
@@ -52,108 +54,121 @@ class _AdminState extends State<Admin> {
   Widget build(BuildContext context) {
     return chargement
         ? Chargement()
-        : Scaffold(
-            bottomNavigationBar:
-                BarMenu(Colors.white, Colors.white, Colors.white, Colors.white),
-            backgroundColor: LightColors.kLightYellow,
-            body: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  ProfilContainer(_user.nom, _user.score),
-                  SizedBox(
-                    height: heightSize(context, 2),
-                  ),
-                  Text(
-                    'أنت فقط من يمكنه التعديل على المجموعة',
-                    textAlign: TextAlign.center,
-                    style:
-                        TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'أي تعديل تقوم به سيظهر عند كل أعضاء هذه المجموعة',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: heightSize(context, 1),
-                  ),
-                  Divider(height: 2,color: Colors.grey,),
-                  SizedBox(
-                    height: heightSize(context, 1.5),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                duration: Duration(milliseconds: 600),
-                                child: AddNewTask()));
-                      },
-                      height: heightSize(context, 7),
-                      color: LightColors.kBlue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      child: Text(
-                        'إضافة عمل جديد',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold),
-                      ),
+        : WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+              bottomNavigationBar:
+                  BarMenu(Colors.white, Colors.white, Colors.white, Colors.white),
+              backgroundColor: LightColors.kLightYellow,
+              body: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    ProfilContainer(_user.nom, _user.score),
+                    SizedBox(
+                      height: heightSize(context, 2),
                     ),
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          children: <Widget>[
-                            for (int i = 0; i < _tasks.length; i++)
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.bottomToTop,
-                                          duration: Duration(milliseconds: 600),
-                                          child: DetailAdmin(_tasks[i].id)));
-                                },
-                                child: ActiveProjectsCard(
-                                  cardColor: (double.parse(
-                                              (_tasks[i].scoreTotale)
-                                                  .toString())) <
-                                          50
-                                      ? LightColors.kRed
-                                      : LightColors.kGreen,
-                                  loadingPercent: (double.parse(
-                                                  (_tasks[i].scoreTotale)
-                                                      .toString())) *
-                                              0.01 <
-                                          1
-                                      ? (double.parse((_tasks[i].scoreTotale)
-                                              .toString())) *
-                                          0.01
-                                      : 1,
-                                  title: _tasks[i].nom,
-                                  subtitle: _tasks[i].description,
-                                ),
-                              ),
-                          ],
+                    Text(
+                      'أنت فقط من يمكنه التعديل على المجموعة',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'أي تعديل تقوم به سيظهر عند كل أعضاء هذه المجموعة',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: heightSize(context, 1),
+                    ),
+                    Divider(
+                      height: 2,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      height: heightSize(context, 0.5),
+                    ),
+                    Text('رمز المجموعة', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                    TextField(
+                      controller: _groupeController,
+                      decoration: InputDecoration(border: InputBorder.none),
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: MaterialButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.bottomToTop,
+                                  duration: Duration(milliseconds: 600),
+                                  child: AddNewTask()));
+                        },
+                        height: heightSize(context, 7),
+                        color: LightColors.kBlue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        child: Text(
+                          'إضافة عمل جديد',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
-                  )
-                ],
+                    SizedBox(height: 8,),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            children: <Widget>[
+                              for (int i = 0; i < _tasks.length; i++)
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.bottomToTop,
+                                            duration: Duration(milliseconds: 600),
+                                            child: DetailAdmin(_tasks[i].id)));
+                                  },
+                                  child: ActiveProjectsCard(
+                                    cardColor: (double.parse(
+                                                (_tasks[i].scoreTotale)
+                                                    .toString())) <
+                                            50
+                                        ? LightColors.kRed
+                                        : LightColors.kGreen,
+                                    loadingPercent: (double.parse(
+                                                    (_tasks[i].scoreTotale)
+                                                        .toString())) *
+                                                0.01 <
+                                            1
+                                        ? (double.parse((_tasks[i].scoreTotale)
+                                                .toString())) *
+                                            0.01
+                                        : 1,
+                                    title: _tasks[i].nom,
+                                    subtitle: _tasks[i].description,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          );
+        );
   }
 }

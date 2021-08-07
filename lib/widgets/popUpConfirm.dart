@@ -25,7 +25,7 @@ popUpConfirm(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Text(
-                    'هل حقا أتممت هذا العمل بنجاح ؟',
+                    'هل أتممت هذا العمل بنجاح ؟',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 22.0,

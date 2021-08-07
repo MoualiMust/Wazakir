@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:wazakir/auth/authService.dart';
 import 'package:wazakir/auth/connexion.dart';
+import 'package:wazakir/screens/first_screen.dart';
 import 'package:wazakir/screens/home_page.dart';
 import 'package:wazakir/size_config.dart';
 import 'package:wazakir/theme/colors/light_colors.dart';
@@ -39,7 +40,7 @@ class _InscriptionState extends State<Inscription> {
                       child: Column(
                         children: <Widget>[
                           SizedBox(
-                            height: 50,
+                            height: heightSize(context, 6),
                           ),
                           Text(
                             'إنشاء حساب جديد',
@@ -50,7 +51,7 @@ class _InscriptionState extends State<Inscription> {
                                 fontWeight: FontWeight.w700),
                           ),
                           SizedBox(
-                            height: 60,
+                            height: heightSize(context, 5),
                           ),
                         ],
                       ),
@@ -66,7 +67,7 @@ class _InscriptionState extends State<Inscription> {
                             controller: _nomController,
                             textAlign: TextAlign.right,
                             decoration:
-                                const InputDecoration(hintText: 'إسم مستعار'),
+                                const InputDecoration(hintText: 'الإسم (أو إسم مستعار)'),
                             validator: (String value) {
                               if (value.isEmpty) {
                                 return 'إسم مستعار';
@@ -142,7 +143,7 @@ class _InscriptionState extends State<Inscription> {
                                 PageTransition(
                                     type: PageTransitionType.bottomToTop,
                                     duration: Duration(milliseconds: 600),
-                                    child: HomePage()));
+                                    child: FirstScreen()));
                             setState(() => chargement = false);
                           } else if (status == 'email-already-in-use') {
                             setState(() => chargement = false);
@@ -168,7 +169,7 @@ class _InscriptionState extends State<Inscription> {
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       child: Text(
-                        'تسجيل',
+                        'إنشاء حساب',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 24.0,
@@ -194,7 +195,7 @@ class _InscriptionState extends State<Inscription> {
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       child: Text(
-                        'دخول',
+                        'تسجيل الدخول',
                         style: TextStyle(
                             color: LightColors.kBlue,
                             fontSize: 24.0,

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lborjdigital.wazakir">
    <application
-        android:label="wazakir"
+        android:label="وَذَكِّرْ"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

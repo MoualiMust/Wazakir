@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:wazakir/size_config.dart';
 import 'package:wazakir/theme/colors/light_colors.dart';
 import 'package:wazakir/widgets/top_container.dart';
 
@@ -23,7 +24,7 @@ class _ProfilContainerState extends State<ProfilContainer> {
     else
       score = widget.score;
     return TopContainer(
-      height: 140,
+      height: heightSize(context, 20),
       width: width,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -67,7 +68,7 @@ class _ProfilContainerState extends State<ProfilContainer> {
                       ),
                       Container(
                         child: Text(
-                          '$score % نسبة الأداء',
+                          '${double.parse(score.toString()).toStringAsFixed(1)} % نسبة الأداء',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 16.0,

@@ -86,7 +86,7 @@ class _MenuState extends State<Menu> {
                                       child: Groupe()));
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -116,7 +116,7 @@ class _MenuState extends State<Menu> {
                                       child: Sabah()));
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -146,7 +146,7 @@ class _MenuState extends State<Menu> {
                                       child: Masaa()));
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -176,7 +176,7 @@ class _MenuState extends State<Menu> {
                                       child: Nawm()));
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -206,7 +206,7 @@ class _MenuState extends State<Menu> {
                                       child: Ahadith()));
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -236,7 +236,7 @@ class _MenuState extends State<Menu> {
                                       child: Azkar()));
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -244,7 +244,7 @@ class _MenuState extends State<Menu> {
                                       BorderRadius.all(Radius.circular(20))),
                               child: Center(
                                 child: Text(
-                                  'أذكار',
+                                  'أدعية مختارة',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 22,
@@ -261,7 +261,7 @@ class _MenuState extends State<Menu> {
                               popUpQuiterGroupe(context, _user.groupeId);
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -286,7 +286,7 @@ class _MenuState extends State<Menu> {
                               popUpLogOut(context);
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -306,10 +306,10 @@ class _MenuState extends State<Menu> {
                           SizedBox(
                             height: heightSize(context, 3),
                           ),
-                          InkWell(
+                          /*InkWell(
                             onTap: () {},
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -328,13 +328,13 @@ class _MenuState extends State<Menu> {
                           ),
                           SizedBox(
                             height: heightSize(context, 3),
-                          ),
+                          ),*/
                           InkWell(
                             onTap: () {
                               popUpIblagh(context, _user.id);
                             },
                             child: Container(
-                              height: heightSize(context, 6),
+                              height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
                               decoration: BoxDecoration(
                                   color: LightColors.kBlue,
@@ -367,7 +367,7 @@ class _MenuState extends State<Menu> {
                                             child: Admin()));
                                   },
                                   child: Container(
-                                    height: heightSize(context, 6),
+                                    height: heightSize(context, 7),
                                     width: MediaQuery.of(context).size.width *
                                         0.85,
                                     decoration: BoxDecoration(
