@@ -19,6 +19,8 @@ import 'package:wazakir/widgets/popUpConfirm.dart';
 import 'package:wazakir/widgets/topContainer.dart';
 import 'package:wazakir/widgets/top_container.dart';
 
+import 'menu/azkar.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -91,18 +93,26 @@ class _HomePageState extends State<HomePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  subheading('الأعمال المتبقية'),
+                                  
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 600),
+                                      child: Azkar()));
+                                    },
                                     child: ActiveProjectsCard(
                                       cardColor: LightColors.kBlue,
-                                      loadingPercent: 0.4,
+                                      loadingPercent: 1,
                                       title: 'ذِكْرِ اللَّهِ',
                                       subtitle:
                                           'الَّذِينَ آمَنُواْ وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ أَلاَ بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
                                       //heith: 110,
                                     ),
                                   ),
+                                  subheading('الأعمال المتبقية'),
                                   for (int i = 0; i < tasksNotDone.length; i++)
                                     InkWell(
                                       onTap: () {
@@ -119,16 +129,7 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: ActiveProjectsCard(
                                         cardColor: LightColors.kRed,
-                                        loadingPercent: (double.parse(
-                                                        (tasksNotDone[i].score)
-                                                            .toString())) *
-                                                    0.01 <
-                                                1
-                                            ? (double.parse(
-                                                    (tasksNotDone[i].score)
-                                                        .toString())) *
-                                                0.01
-                                            : 1,
+                                        loadingPercent: 0,
                                         title: tasksNotDone[i].nom,
                                         subtitle: tasksNotDone[i].description,
                                         //heith: 110,
@@ -147,15 +148,7 @@ class _HomePageState extends State<HomePage> {
                                   for (int i = 0; i < tasksDone.length; i++)
                                     ActiveProjectsCard(
                                       cardColor: LightColors.kGreen,
-                                      loadingPercent: (double.parse(
-                                                      (tasksDone[i].score)
-                                                          .toString())) *
-                                                  0.01 <
-                                              1
-                                          ? (double.parse((tasksDone[i].score)
-                                                  .toString())) *
-                                              0.01
-                                          : 1,
+                                      loadingPercent: 1,
                                       title: tasksDone[i].nom,
                                       subtitle: tasksDone[i].description,
                                       //heith: 110,

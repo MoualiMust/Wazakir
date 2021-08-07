@@ -51,7 +51,19 @@ class _ChartState extends State<Chart> {
     super.initState();
     getData();
   }
-
+Widget subheading(String title) {
+    return Center(
+      child: Text(
+        title,
+        textAlign: TextAlign.right,
+        style: TextStyle(
+            color: LightColors.kDarkBlue,
+            fontSize: 20.0,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.2),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     if (score > 100)
@@ -178,6 +190,7 @@ class _ChartState extends State<Chart> {
                                   SizedBox(
                                     height: heightSize(context, 1),
                                   ),
+                                  
                                   ActiveProjectsCard(
                                     cardColor: score < 50
                                         ? LightColors.kRed
@@ -203,6 +216,7 @@ class _ChartState extends State<Chart> {
                                   SizedBox(
                                     height: heightSize(context, 1),
                                   ),
+                                  subheading('أداء المجموعة'),
                                   for (int i = 0; i < tasks.length; i++)
                                     ActiveProjectsCard(
                                       cardColor: type == 'today'

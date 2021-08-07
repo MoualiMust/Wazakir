@@ -17,7 +17,7 @@ class _OnbordingState extends State<Onbording> {
         child: Text(
       text,
       style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 26.0),
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 45.0),
     ));
   }
 
@@ -26,7 +26,7 @@ class _OnbordingState extends State<Onbording> {
     {
       "title": "مرحبا",
       "description":
-          "وذكر هو تطبيق شبه إجتماعي يمَكِّن مستعميليه من إضافة الأعمال اليومية التي يرغبون في  أدائها في مجموعات، حيث يساعد هذا التطبيق على تذكيرك بالأعمال التي ترغب في أدائها في يومك و ليلتك، أو الأعمال التي تود أدائها مع اصدقائك"
+          "وذكر هو تطبيق شبه إجتماعي يمَكِّن مستعمليه من إضافة الأعمال اليومية التي يرغبون في  أدائها في مجموعات، حيث يساعد هذا التطبيق على تذكيرك بالأعمال التي ترغب في أدائها في يومك و ليلتك، أو الأعمال التي تود أدائها مع أصدقائك"
     },
     {
       "title": "إحصائيات",
@@ -41,15 +41,18 @@ class _OnbordingState extends State<Onbording> {
     {
       "title": "إعدادات",
       "description":
-          "يستطيع رئيس المجموعة، الذي قام بإنشاء المجموعة أول مرة أن يضيف أعمال، او يقوم بتعديلات على العمل، او حذف العمل هذا التطبيق لا يجمع أي معلومة شخصية على مستعمليه، و حتى الإسم يمكن إستعمال إسم مستعار، وبريد إلكتروني مستعار أيضا"
+          "يستطيع رئيس المجموعة، الذي قام بإنشاء المجموعة أول مرة أن يضيف أعمال، أو يقوم بتعديلات على العمل، أو حذف العمل. هذا التطبيق لا يجمع أي معلومة شخصية على مستعمليه، و حتى الإسم يمكن إستعمال إسم مستعار، وبريد إلكتروني مستعار أيضا"
     },
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          child: PageView.builder(
+      backgroundColor: LightColors.kDarkYellow,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: PageView.builder(
               reverse: true,
               onPageChanged: (value) {
                 setState(() {
@@ -58,92 +61,78 @@ class _OnbordingState extends State<Onbording> {
               },
               itemCount: splashData.length,
               itemBuilder: (context, index) => Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      TopContainer(
-                          width: MediaQuery.of(context).size.width,
-                          height: heightSize(context, 18),
-                          child: text(splashData[index]['title']),
-                        ),
-                      
-                      SizedBox(
-                        height: heightSize(context, 5),
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  SizedBox(
+                    height: heightSize(context, 5),
+                  ),
+                  text(splashData[index]['title']),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      padding: EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: LightColors.kBlue,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.indigo[400],
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                                splashData[index]['description'].toString(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              Spacer(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                  splashData.length,
-                                  (index) => buildDot(index: 3 - index),
-                                ),
-                              ),
-                              SizedBox(
-                                height: heightSize(context, 10),
-                              ),
-                              MaterialButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.bottomToTop,
-                                          duration: Duration(milliseconds: 600),
-                                          child: Connexion()));
-                                },
-                                height: heightSize(context, 7),
-                                color: LightColors.kDarkYellow,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                ),
-                                child: Text(
-                                  'إبدء',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Spacer(),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-        ),
+                      height: heightSize(context, 25),
+                      child: Text(splashData[index]['description'].toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: heightSize(context, 10),),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              splashData.length,
+              (index) => buildDot(index: 3 - index),
+            ),
+          ),
+          SizedBox(height: heightSize(context, 5),),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        duration: Duration(milliseconds: 600),
+                        child: Connexion()));
+              },
+              height: heightSize(context, 7),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              child: Text(
+                'إبدء',
+                style: TextStyle(
+                    color: LightColors.kBlue,
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: heightSize(context, 20),
+          ),
+        ],
       ),
     );
   }
 
   AnimatedContainer buildDot({int index}) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 200),
+      duration: Duration(milliseconds: 700),
       margin: EdgeInsets.only(right: 5),
       height: 6,
       width: currentPage == index ? 20 : 6,

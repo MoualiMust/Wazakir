@@ -16,7 +16,7 @@ class FireStoreService {
       'id': _auth.uid,
       'nom': nom,
       'score': 0,
-      'date': "2222-25-87",
+      'date': "2021-08-01",
       'scoreHier': 0,
       'scoreTotale': 0,
       'groupeId':""

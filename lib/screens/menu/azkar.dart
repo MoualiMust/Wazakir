@@ -83,7 +83,7 @@ class _AzkarState extends State<Azkar> {
             TopContainer(
               width: MediaQuery.of(context).size.width,
               height: 100,
-              child: text('أذكار'),
+              child: text('أدعية مختارة'),
             ),
             Expanded(
                 child: Column(

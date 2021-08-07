@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:wazakir/models/user.dart';
 import 'package:wazakir/providers/userProvider.dart';
@@ -20,7 +19,7 @@ import 'package:wazakir/theme/colors/light_colors.dart';
 import 'package:wazakir/widgets/barMenu.dart';
 import 'package:wazakir/widgets/chargement.dart';
 import 'package:wazakir/widgets/topContainer.dart';
-import 'package:wazakir/widgets/top_container.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -306,8 +305,16 @@ class _MenuState extends State<Menu> {
                           SizedBox(
                             height: heightSize(context, 3),
                           ),
-                          /*InkWell(
-                            onTap: () {},
+                          InkWell(
+                            onTap: () async {
+                              await FlutterShare.share(
+                                  title: 'وَذَكِّرْ',
+                                  text:
+                                      'قم بتحميل تطبيق وذكر وإنضم الى مجموعة أصدقائك',
+                                  linkUrl:
+                                      'https://play.google.com/store/apps/details?id=com.lborjdigital.wazakir',
+                                  chooserTitle: 'تطبيق وذكر');
+                            },
                             child: Container(
                               height: heightSize(context, 7),
                               width: MediaQuery.of(context).size.width * 0.85,
@@ -328,7 +335,7 @@ class _MenuState extends State<Menu> {
                           ),
                           SizedBox(
                             height: heightSize(context, 3),
-                          ),*/
+                          ),
                           InkWell(
                             onTap: () {
                               popUpIblagh(context, _user.id);

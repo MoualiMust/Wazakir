@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wazakir/models/tasks.dart';
@@ -55,10 +56,10 @@ class _AdminState extends State<Admin> {
     return chargement
         ? Chargement()
         : WillPopScope(
-          onWillPop: () async => false,
-          child: Scaffold(
-              bottomNavigationBar:
-                  BarMenu(Colors.white, Colors.white, Colors.white, Colors.white),
+            onWillPop: () async => false,
+            child: Scaffold(
+              bottomNavigationBar: BarMenu(
+                  Colors.white, Colors.white, Colors.white, Colors.white),
               backgroundColor: LightColors.kLightYellow,
               body: SafeArea(
                 child: Column(
@@ -71,8 +72,8 @@ class _AdminState extends State<Admin> {
                     Text(
                       'أنت فقط من يمكنه التعديل على المجموعة',
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 17.0, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       'أي تعديل تقوم به سيظهر عند كل أعضاء هذه المجموعة',
@@ -92,7 +93,34 @@ class _AdminState extends State<Admin> {
                     SizedBox(
                       height: heightSize(context, 0.5),
                     ),
-                    Text('رمز المجموعة', textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                            onTap: () async {
+                              await FlutterShare.share(
+                                  title: 'وَذَكِّرْ',
+                                  text:
+                                      ' قم بتحميل تطبيق وذكر وإنضم الى مجموعة أصدقائك بإستعمال هذا الرمز  ${_groupeController.text} ',
+                                  linkUrl:
+                                      'https://play.google.com/store/apps/details?id=com.lborjdigital.wazakir',
+                                  chooserTitle: 'تطبيق وذكر');
+                            },
+                            child: Icon(
+                              Icons.share,
+                              color: Colors.green,
+                            )),
+                        SizedBox(
+                          width: widthSize(context, 3),
+                        ),
+                        Text(
+                          'رمز المجموعة',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                     TextField(
                       controller: _groupeController,
                       decoration: InputDecoration(border: InputBorder.none),
@@ -123,7 +151,9 @@ class _AdminState extends State<Admin> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 8,),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
@@ -136,8 +166,10 @@ class _AdminState extends State<Admin> {
                                     Navigator.push(
                                         context,
                                         PageTransition(
-                                            type: PageTransitionType.bottomToTop,
-                                            duration: Duration(milliseconds: 600),
+                                            type:
+                                                PageTransitionType.bottomToTop,
+                                            duration:
+                                                Duration(milliseconds: 600),
                                             child: DetailAdmin(_tasks[i].id)));
                                   },
                                   child: ActiveProjectsCard(
@@ -169,6 +201,6 @@ class _AdminState extends State<Admin> {
                 ),
               ),
             ),
-        );
+          );
   }
 }

@@ -32,11 +32,15 @@ Future<void> addUserTasks(String groupeId) async {
 Future<void> deleteUserFromGroupe(String groupeId) async {
   await FireStoreService().getTasks(groupeId).then((value) => _tasks = value);
   await Future.forEach(_tasks, (element) async {
-    await _db.collection('groupes').doc(groupeId)
+    await _db
+        .collection('groupes')
+        .doc(groupeId)
         .collection('tasks')
         .doc(element.id)
         .update({'nmbrUser': element.nmbrUser - 1});
-    await _db.collection('groupes').doc(groupeId)
+    await _db
+        .collection('groupes')
+        .doc(groupeId)
         .collection('tasks')
         .doc(element.id)
         .collection('users')
