@@ -79,6 +79,7 @@ class _InscriptionState extends State<Inscription> {
                             height: heightSize(context, 1.5),
                           ),
                           TextFormField(
+                            keyboardType: TextInputType.visiblePassword,
                             textAlign: TextAlign.right,
                             controller: _emailController,
                             decoration: const InputDecoration(
@@ -123,6 +124,7 @@ class _InscriptionState extends State<Inscription> {
                     ),
                     Text(
                       erreur,
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.red),
                     ),
                     SizedBox(

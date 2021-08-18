@@ -40,11 +40,17 @@ class _HomePageState extends State<HomePage> {
     });
     await FireStoreService()
         .deleteScoreUser(_user.id, _user.score, _user.scoreTotale, _user.date);
+    
     await FireStoreService().deleteScoreTask();
     await FireStoreService().taskDone(context);
     tasksDone = Provider.of<TaskProvider>(context, listen: false).tasksDone;
     tasksNotDone =
         Provider.of<TaskProvider>(context, listen: false).tasksNotDone;
+    await Provider.of<UserProvider>(context, listen: false)
+        .getUser()
+        .then((value) {
+      _user = value;
+    });
     setState(() {
       chargement = false;
     });
@@ -75,9 +81,10 @@ class _HomePageState extends State<HomePage> {
     return chargement
         ? Chargement()
         : WillPopScope(
-          onWillPop: () async => false,
-          child: Scaffold(
-            bottomNavigationBar: BarMenu(LightColors.kRed,Colors.white,Colors.white,Colors.white),
+            onWillPop: () async => false,
+            child: Scaffold(
+              bottomNavigationBar: BarMenu(
+                  LightColors.kRed, Colors.white, Colors.white, Colors.white),
               body: SafeArea(
                 child: Column(
                   children: <Widget>[
@@ -93,25 +100,23 @@ class _HomePageState extends State<HomePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      type: PageTransitionType.bottomToTop,
-                                      duration: Duration(milliseconds: 600),
-                                      child: Azkar()));
-                                    },
-                                    child: ActiveProjectsCard(
-                                      cardColor: LightColors.kBlue,
-                                      loadingPercent: 1,
-                                      title: 'ذِكْرِ اللَّهِ',
-                                      subtitle:
-                                          'الَّذِينَ آمَنُواْ وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ أَلاَ بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
-                                      //heith: 110,
-                                    ),
-                                  ),
+                                  // InkWell(
+                                  //   onTap: () {
+                                  //     var date = DateTime.now();
+                                  //     var day = DateTime(date.year, date.month, date.day + 1);
+                                  //     print(day);
+                                  //   },
+                                  //   child: ActiveProjectsCard(
+                                  //     cardColor: LightColors.kBlue,
+                                  //     loadingPercent: 1,
+                                  //     title: 'ذِكْرِ اللَّهِ',
+                                  //     subtitle:
+                                  //         'الَّذِينَ آمَنُواْ وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ أَلاَ بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
+                                  //   ),
+                                  // ),
+                                  // Divider(
+                                  //   height: 2,
+                                  // ),
                                   subheading('الأعمال المتبقية'),
                                   for (int i = 0; i < tasksNotDone.length; i++)
                                     InkWell(
@@ -164,6 +169,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-        );
+          );
   }
 }

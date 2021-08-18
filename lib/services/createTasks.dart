@@ -10,12 +10,7 @@ class CreateTasks {
       groupeId, groupeNom, taskNom, taskDescription) async {
     bool res = false;
     final id = Uuid().v1();
-    final today = DateTime.now();
-    String day = (today.year).toString() +
-        '-' +
-        (today.month).toString() +
-        '-' +
-        (today.day).toString();
+    String today = DateTime.now().toString();
     await _db
         .collection('groupes')
         .doc(groupeId)
@@ -27,7 +22,7 @@ class CreateTasks {
           .doc(id)
           .set({
         'id': id,
-        'date': day,
+        'date': today,
         'nom': taskNom,
         'description': taskDescription,
         'nmbrUser': 1,

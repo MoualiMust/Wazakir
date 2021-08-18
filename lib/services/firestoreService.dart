@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:wazakir/models/tasks.dart';
 import 'package:wazakir/models/user.dart';
 import 'package:wazakir/providers/tasksProvider.dart';
+import 'package:wazakir/services/getAllUsers.dart';
 
 class FireStoreService {
   FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -12,14 +13,15 @@ class FireStoreService {
   Users _user;
 
   Future<void> saveUser(String nom) async {
+    String today = DateTime.now().toString();
     await _db.collection('users').doc(_auth.uid).set({
       'id': _auth.uid,
       'nom': nom,
       'score': 0,
-      'date': "2021-08-01",
+      'date': today,
       'scoreHier': 0,
       'scoreTotale': 0,
-      'groupeId':""
+      'groupeId': ""
     });
   }
 
@@ -32,11 +34,8 @@ class FireStoreService {
 
   Future<List<Tasks>> getTasks(String groupeId) async {
     List<Tasks> tasks = [];
-    var res = await _db
-        .collection('groupes')
-        .doc(groupeId)
-        .collection('tasks')
-        .get();
+    var res =
+        await _db.collection('groupes').doc(groupeId).collection('tasks').get();
     tasks = res.docs.map((e) => Tasks.fromFirestore(e.data())).toList();
     return tasks;
   }
@@ -50,7 +49,6 @@ class FireStoreService {
     List<Tasks> tasks = [];
     await getTasks(_user.groupeId).then((value) => tasks = value);
     await Future.forEach(tasks, (element) async {
-      
       var user = await _db
           .collection('groupes')
           .doc(_user.groupeId)
@@ -95,20 +93,18 @@ class FireStoreService {
   Future<void> deleteScoreTask() async {
     await getUser();
     List<Tasks> tasks = [];
+    List<Users> users = [];
     await getTasks(_user.groupeId).then((value) => tasks = value);
     var today = DateTime.now();
-    String day = (today.year).toString() +
-        '-' +
-        (today.month).toString() +
-        '-' +
-        (today.day).toString();
-    String newDay = (today.year).toString() +
-        '-' +
-        (today.month).toString() +
-        '-' +
-        (today.day + 1).toString();
+    String day = today.toString();
+    String newDay = DateTime(today.year, today.month, today.day + 1).toString();
     await Future.forEach(tasks, (element) async {
       if (day.compareTo(element.date) > 0) {
+        await getAllUsers(_user.groupeId).then((value) => users = value);
+        dynamic score = element.score < 100 ? element.score : 100;
+        dynamic totale = element.scoreTotale != 0
+            ? (score + element.scoreTotale) / 2
+            : score;
         await _db
             .collection('groupes')
             .doc(_user.groupeId)
@@ -116,19 +112,21 @@ class FireStoreService {
             .doc(element.id)
             .update({
           'score': 0,
-          'scoreHier': element.score,
+          'scoreHier': score,
           'date': newDay,
-          'scoreTotale': (element.score + element.scoreTotale) / 2
+          'scoreTotale': totale
         });
-        await _db
-            .collection('groupes')
-            .doc(_user.groupeId)
-            .collection('tasks')
-            .doc(element.id)
-            .collection('users')
-            .doc(_auth.uid)
-            .update({'done': false}).then((value) {
-          return true;
+        await Future.forEach(users, (user) async {
+          await _db
+              .collection('groupes')
+              .doc(_user.groupeId)
+              .collection('tasks')
+              .doc(element.id)
+              .collection('users')
+              .doc(user.id)
+              .update({'done': false}).then((value) {
+            return true;
+          });
         });
       }
     });
@@ -137,22 +135,16 @@ class FireStoreService {
   Future<void> deleteScoreUser(
       String idUser, dynamic score, dynamic scoreTotale, String date) async {
     var today = DateTime.now();
-    String day = (today.year).toString() +
-        '-' +
-        (today.month).toString() +
-        '-' +
-        (today.day).toString();
-    String newDay = (today.year).toString() +
-        '-' +
-        (today.month).toString() +
-        '-' +
-        (today.day + 1).toString();
+    String day = today.toString();
+    String newDay = DateTime(today.year, today.month, today.day + 1).toString();
     if (day.compareTo(date) > 0) {
+      dynamic newScore = score < 100 ? score : 100;
+      dynamic totale = scoreTotale != 0 ? (score + scoreTotale) / 2 : score;
       await _db.collection('users').doc(idUser).update({
         'score': 0,
-        'scoreHier': score,
+        'scoreHier': newScore,
         'date': newDay,
-        'scoreTotale': (score + scoreTotale) / 2
+        'scoreTotale': totale
       });
     }
   }

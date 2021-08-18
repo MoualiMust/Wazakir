@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wazakir/models/user.dart';
@@ -16,21 +17,21 @@ class Groupe extends StatefulWidget {
 }
 
 class _GroupeState extends State<Groupe> {
+  FirebaseFirestore _db = FirebaseFirestore.instance;
   Users _user;
   bool chargement = true;
   List<Users> _users = [];
+  String groupeNom = '';
 
   String dateUser(String date) {
-    var today = DateTime.now();
-    String day = (today.year).toString() +
+    var today = DateTime.parse(date);
+    var day = DateTime(today.year, today.month, today.day - 1);
+    String newDate = (day.year).toString() +
         '-' +
-        (today.month).toString() +
+        (day.month).toString() +
         '-' +
-        (today.day).toString();
-    if (day.compareTo(date) > 0)
-      return date;
-    else
-      return day;
+        (day.day).toString();
+    return newDate;
   }
 
   void getData() async {
@@ -39,6 +40,9 @@ class _GroupeState extends State<Groupe> {
         .getUser()
         .then((value) {
       _user = value;
+    });
+    await _db.collection('groupes').doc(_user.groupeId).get().then((value) {
+      groupeNom = value.data()['groupeNom'];
     });
     await getAllUsers(_user.groupeId).then((value) => _users = value);
     setState(() {
@@ -64,15 +68,25 @@ class _GroupeState extends State<Groupe> {
               child: Column(
                 children: <Widget>[
                   ProfilContainer(_user.nom, _user.score),
-                  SizedBox(
-                    height: heightSize(context, 2),
-                  ),
                   Expanded(
                     child: SingleChildScrollView(
                         child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6.0, horizontal: 14.0),
                       child: Column(
                         children: <Widget>[
+                          SizedBox(
+                            height: heightSize(context, 1),
+                          ),
+                          Text(
+                            ' أعضاء $groupeNom ',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: heightSize(context, 1),
+                          ),
                           for (int i = 0; i < _users.length; i++)
                             ActiveProjectsCard(
                               cardColor: _users[i].score < 50
@@ -87,8 +101,7 @@ class _GroupeState extends State<Groupe> {
                                           0.01
                                       : 1,
                               title: _users[i].nom,
-                              subtitle:
-                                  '${dateUser(_users[i].date)}',
+                              subtitle: '${dateUser(_users[i].date)}',
                             ),
                         ],
                       ),

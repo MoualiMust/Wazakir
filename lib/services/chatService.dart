@@ -6,24 +6,13 @@ FirebaseFirestore _db = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance.currentUser;
 
 Future<void> sendMessage(String groupeId, String message, String nom) async {
-  var today = DateTime.now();
-  String date = (today.year).toString() +
-      '-' +
-      (today.month).toString() +
-      '-' +
-      (today.day).toString() +
-      ' : ' +
-      (today.hour).toString() +
-      'h' +
-      (today.minute).toString() +
-      ':' +
-      (today.second).toString();
+  var today = DateTime.now().toString();
   await _db
       .collection('groupes')
       .doc(groupeId)
       .collection('chat')
-      .doc(date)
-      .set({'id': _auth.uid, 'nom': nom, 'message': message, 'date': date});
+      .doc(today)
+      .set({'id': _auth.uid, 'nom': nom, 'message': message, 'date': today});
 }
 
 Future<List<Chat>> getAllMessage(String groupId) async {

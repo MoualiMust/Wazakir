@@ -31,7 +31,7 @@ class _OnbordingState extends State<Onbording> {
     {
       "title": "إحصائيات",
       "description":
-          "هذا التطبيق يمكِّنك من معرفة نسبة أدائك لأعمال اليوم، ونسبة أدائك ليوم الأمس،  ومعدل الأداء منذ بدايتك في إستعمال التطبيق  كما يمكنك من معرفت نسبة أداء المجموعة لكل عمل، لليوم، و الأمس، و المعدل العام"
+          "هذا التطبيق يمكِّنك من معرفة نسبة أدائك لأعمال اليوم، ونسبة أدائك ليوم الأمس،  ومعدل الأداء منذ بدايتك في إستعمال التطبيق  كما يمكنك من معرفة نسبة أداء المجموعة لكل عمل، لليوم، و الأمس، و المعدل العام"
     },
     {
       "title": "المجموعة",
@@ -75,13 +75,18 @@ class _OnbordingState extends State<Onbording> {
                         color: LightColors.kBlue,
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      height: heightSize(context, 25),
-                      child: Text(splashData[index]['description'].toString(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold)),
+                      height: heightSize(context, 31),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(splashData[index]['description'].toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
                     ),
                   ),
                 ],

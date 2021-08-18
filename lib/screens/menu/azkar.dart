@@ -86,28 +86,33 @@ class _AzkarState extends State<Azkar> {
               child: text('أدعية مختارة'),
             ),
             Expanded(
+              child: InkWell(
+                onTap: () {
+                  setState(() {});
+                },
                 child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.indigo[400],
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.indigo[400],
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      width: MediaQuery.of(context).size.width * 0.9,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(data[r].toString(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
+                        padding: const EdgeInsets.all(10.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(data[r].toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           ],

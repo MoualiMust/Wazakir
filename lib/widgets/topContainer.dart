@@ -24,7 +24,7 @@ class _ProfilContainerState extends State<ProfilContainer> {
     else
       score = widget.score;
     return TopContainer(
-      height: heightSize(context, 20),
+      height: heightSize(context, 16),
       width: width,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

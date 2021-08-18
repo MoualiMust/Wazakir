@@ -178,7 +178,11 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                             ),
                             MaterialButton(
                               onPressed: () {
-                                popUpAddGroupe(context, _groupeController.text);
+                                if (_groupeController.text == '')
+                                  setState(() {
+                                    done = 'لم يتم إضافة العمل، حاول ';
+                                  });
+                                else popUpAddGroupe(context, _groupeController.text);
                               },
                               minWidth: width - 60,
                               height: heightSize(context, 7),

@@ -5,7 +5,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-void initialNotification() async {
+Future initialNotification() async {
   flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('ic_launcher');

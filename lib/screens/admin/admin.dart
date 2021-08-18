@@ -100,11 +100,7 @@ class _AdminState extends State<Admin> {
                             onTap: () async {
                               await FlutterShare.share(
                                   title: 'وَذَكِّرْ',
-                                  text:
-                                      ' قم بتحميل تطبيق وذكر وإنضم الى مجموعة أصدقائك بإستعمال هذا الرمز  ${_groupeController.text} ',
-                                  linkUrl:
-                                      'https://play.google.com/store/apps/details?id=com.lborjdigital.wazakir',
-                                  chooserTitle: 'تطبيق وذكر');
+                                  text: '${_groupeController.text}');
                             },
                             child: Icon(
                               Icons.share,

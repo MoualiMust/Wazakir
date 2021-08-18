@@ -21,14 +21,17 @@ void main() async {
     systemNavigationBarColor: LightColors.kLightYellow, // navigation bar color
     statusBarColor: Color(0xffffb969), // status bar color
   ));
-  initialNotification();
-  showNotification();
+  await initialNotification();
+  await showNotification();
   return runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return MultiProvider(
       providers: [
         StreamProvider<Utilisateur>.value(

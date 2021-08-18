@@ -82,28 +82,33 @@ class _AhadithState extends State<Ahadith> {
               child: text('أحاديث'),
             ),
             Expanded(
+              child: InkWell(
+                onTap: () {
+                  setState(() {});
+                },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.indigo[400],
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.indigo[400],
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      width: MediaQuery.of(context).size.width * 0.9,
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(data[r].toString(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold)),
+                        padding: const EdgeInsets.all(5.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(data[r].toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           ],

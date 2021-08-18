@@ -27,6 +27,7 @@ class _DiscutionState extends State<Discution> {
       _user = value;
     });
     await getAllMessage(_user.groupeId).then((value) => messages = value);
+    messages.sort((a, b) => a.date.compareTo(b.date));
     setState(() {
       chargement = false;
     });
@@ -45,8 +46,8 @@ class _DiscutionState extends State<Discution> {
     return chargement
         ? Chargement()
         : WillPopScope(
-          onWillPop: () async => false,
-          child: Scaffold(
+            onWillPop: () async => false,
+            child: Scaffold(
               bottomNavigationBar: BarMenu(
                   Colors.white, Colors.white, LightColors.kRed, Colors.white),
               backgroundColor: LightColors.kLightYellow,
@@ -62,18 +63,22 @@ class _DiscutionState extends State<Discution> {
                           reverse: true,
                           child: Column(
                             children: <Widget>[
-                              for (int i = 0; i < messages.length;i++)
+                              for (int i = 0; i < messages.length; i++)
                                 Column(
                                   children: [
-                                    SizedBox(height: heightSize(context, 1.5),),
+                                    SizedBox(
+                                      height: heightSize(context, 1.5),
+                                    ),
                                     Container(
                                       decoration: BoxDecoration(
                                           color: Colors.indigo[400],
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(15))),
-                                      width: MediaQuery.of(context).size.width * 0.8,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15.0, vertical: 5.0),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
@@ -81,22 +86,26 @@ class _DiscutionState extends State<Discution> {
                                             Text(
                                               messages[i].nom,
                                               textAlign: TextAlign.right,
-                                              style: TextStyle(color: Colors.white60, fontSize: 16.0, fontWeight: FontWeight.w700),
+                                              style: TextStyle(
+                                                  color: Colors.white60,
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.w700),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
                                               child: Text(messages[i].message,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.bold)),
+                                                      fontSize: 16.5,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
                                             ),
                                             Text(messages[i].date,
                                                 style: TextStyle(
-                                                  color: Colors.white54,
-                                                  fontSize: 13.0
-                                                )),
+                                                    color: Colors.white54,
+                                                    fontSize: 12.0)),
                                           ],
                                         ),
                                       ),
@@ -123,11 +132,15 @@ class _DiscutionState extends State<Discution> {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none),
-                                      textAlign: TextAlign.right,
-                                      onChanged: (val) => message = val,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 18.0),
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none),
+                                        textAlign: TextAlign.right,
+                                        onChanged: (val) => message = val,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -167,6 +180,6 @@ class _DiscutionState extends State<Discution> {
                 ),
               ),
             ),
-        );
+          );
   }
 }

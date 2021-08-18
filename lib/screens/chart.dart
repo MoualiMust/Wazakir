@@ -51,7 +51,8 @@ class _ChartState extends State<Chart> {
     super.initState();
     getData();
   }
-Widget subheading(String title) {
+
+  Widget subheading(String title) {
     return Center(
       child: Text(
         title,
@@ -64,6 +65,7 @@ Widget subheading(String title) {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     if (score > 100)
@@ -169,6 +171,9 @@ Widget subheading(String title) {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: heightSize(context, 1),
+                    ),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
@@ -180,9 +185,6 @@ Widget subheading(String title) {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  SizedBox(
-                                    height: heightSize(context, 1),
-                                  ),
                                   Divider(
                                     height: 2,
                                     color: Colors.grey,
@@ -190,7 +192,6 @@ Widget subheading(String title) {
                                   SizedBox(
                                     height: heightSize(context, 1),
                                   ),
-                                  
                                   ActiveProjectsCard(
                                     cardColor: score < 50
                                         ? LightColors.kRed

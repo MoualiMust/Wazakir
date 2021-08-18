@@ -26,12 +26,7 @@ Future<bool> addTaskToGroupe(
   List<Users> users = [];
   await getAllUsers(groupeId).then((value) => users = value);
   final id = Uuid().v1();
-  final today = DateTime.now();
-  String day = (today.year).toString() +
-      '-' +
-      (today.month).toString() +
-      '-' +
-      (today.day).toString();
+  String today = DateTime.now().toString();
   await _db
       .collection('groupes')
       .doc(groupeId)
@@ -39,7 +34,7 @@ Future<bool> addTaskToGroupe(
       .doc(id)
       .set({
     'id': id,
-    'date': day,
+    'date': today,
     'nom': nom,
     'description': description,
     'nmbrUser': users.length,
